@@ -24,31 +24,25 @@ pub mod schema;
 pub mod users_model;
 
 // Project Routes
+pub mod default_routes;
 pub mod users_route;
 
 #[database("PDC")]
 pub struct DbConn(diesel::MysqlConnection);
 
-#[get("/")]
-pub fn index() -> &'static str {
-    "Application successfully started!"
-}
-
-#[get("/favicon.ico")]
-fn favicon() -> StaticResponse {
-    static_response!("favicon")
-}
-
 fn main() {
     rocket::ignite()
         .attach(StaticResponse::fairing(|resources| {
-            static_resources_initialize!(resources, "favicon", "src/favicon.ico",);
+            static_resources_initialize!(
+                resources, 
+                "favicon", default_routes::favicon_dir(),
+                "index_page", default_routes::index_dir(),);
         }))
         .mount(
             "/",
             routes![
-                index,
-                favicon,
+                default_routes::index,
+                default_routes::favicon,
                 users_route::create_user,
                 users_route::read_users,
             ],
