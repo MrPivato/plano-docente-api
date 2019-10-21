@@ -2,20 +2,12 @@ use diesel::{self, prelude::*};
 
 use rocket_contrib::json::Json;
 
-use crate::users_model::{InsertableUser, Users};
 use crate::schema;
+use crate::users_model::{InsertableUser, Users};
 use crate::DbConn;
 
-#[get("/")]
-pub fn index() -> &'static str {
-    "Application successfully started!"
-}
-
 #[post("/users", data = "<user>")]
-pub fn create_user(
-    conn: DbConn,
-    user: Json<InsertableUser>,
-) -> Result<String, String> {
+pub fn create_user(conn: DbConn, user: Json<InsertableUser>) -> Result<String, String> {
     let inserted_rows = diesel::insert_into(schema::users::table)
         .values(&user.0)
         .execute(&conn.0)

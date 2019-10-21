@@ -31,29 +31,28 @@ pub struct DbConn(diesel::MysqlConnection);
 
 #[get("/")]
 pub fn index() -> &'static str {
-	"Application successfully started!"
+    "Application successfully started!"
 }
 
 #[get("/favicon.ico")]
 fn favicon() -> StaticResponse {
-	static_response!("favicon")
+    static_response!("favicon")
 }
 
 fn main() {
-	rocket::ignite()
-	.attach(StaticResponse::fairing(|resources| {
-		static_resources_initialize!(
-			resources,
-			"favicon", "src/favicon.ico",
-			);
-	}))
-	.mount("/", routes![
-		index,
-		favicon,
-		users_route::create_user,
-		users_route::read_users,
-		])
-
-	.attach(DbConn::fairing())
-	.launch();
+    rocket::ignite()
+        .attach(StaticResponse::fairing(|resources| {
+            static_resources_initialize!(resources, "favicon", "src/favicon.ico",);
+        }))
+        .mount(
+            "/",
+            routes![
+                index,
+                favicon,
+                users_route::create_user,
+                users_route::read_users,
+            ],
+        )
+        .attach(DbConn::fairing())
+        .launch();
 }
