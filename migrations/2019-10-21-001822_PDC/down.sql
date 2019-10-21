@@ -1,0 +1,13 @@
+DROP TABLE `atendimentos`;
+DROP TABLE `atividades_administrativas`;
+DROP TABLE `atividades_extensao`;
+DROP TABLE `atividades_pesquisa`;
+DROP TABLE `aulas`;
+DROP TABLE `ciclos_letivos`;
+DROP TABLE `componentes_curriculares`;
+DROP TABLE `cursos`;
+DROP TABLE `niveis_ensino`;
+DROP TABLE `professors`;
+DROP TABLE `projetos_ensino`;
+DROP TABLE `reunioes_formacao_docente`;
+DROP TABLE `users`;
