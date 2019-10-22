@@ -18,6 +18,15 @@ pub struct InsertableUser {
     pub password_hash: String,
 }
 
+#[derive(Serialize, Deserialize, Queryable, AsChangeset)]
+#[table_name = "users"]
+pub struct UpdatableUser {
+    pub login: String,
+    pub password_hash: String,
+    pub updated_at: NaiveDateTime,
+}
+
+
 /*
     users (id) {
         id -> Integer,

@@ -19,11 +19,10 @@ use rocket_include_static_resources::StaticResponse;
 pub mod cors;
 pub mod schema;
 
-// --- Project Models
-
+/* --- Project Models --- */
 pub mod users_model;
 
-// Project Routes
+/* --- Project Routes --- */
 pub mod default_routes;
 pub mod users_route;
 
@@ -44,7 +43,10 @@ fn main() {
                 default_routes::index,
                 default_routes::favicon,
                 users_route::create_user,
+                users_route::read_user,
                 users_route::read_users,
+                users_route::update_user,
+                users_route::delete_user,
             ],
         )
         .attach(DbConn::fairing())
