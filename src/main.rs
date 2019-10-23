@@ -21,10 +21,12 @@ pub mod schema;
 
 /* --- Project Models --- */
 pub mod users_model;
+pub mod professors_model;
 
 /* --- Project Routes --- */
 pub mod default_routes;
 pub mod users_route;
+pub mod professors_route;
 
 #[database("PDC")]
 pub struct DbConn(diesel::MysqlConnection);
@@ -40,13 +42,23 @@ fn main() {
         .mount(
             "/",
             routes![
+                // default routes
                 default_routes::index,
                 default_routes::favicon,
+
+                // users routes
                 users_route::create_user,
                 users_route::read_user,
                 users_route::read_users,
                 users_route::update_user,
                 users_route::delete_user,
+
+                // professors routes
+                professors_route::create_professor,
+                professors_route::read_professor,
+                professors_route::read_professors,
+                professors_route::update_professor,
+                professors_route::delete_professor,
             ],
         )
         .attach(DbConn::fairing())
