@@ -26,7 +26,6 @@ pub struct UpdatableUser {
     pub updated_at: NaiveDateTime,
 }
 
-
 /*
     users (id) {
         id -> Integer,

@@ -20,17 +20,17 @@ pub mod cors;
 pub mod schema;
 
 /* --- Project Models --- */
-pub mod users_model;
-pub mod professors_model;
-pub mod niveis_ensino_model;
 pub mod ciclos_letivos_model;
+pub mod niveis_ensino_model;
+pub mod professors_model;
+pub mod users_model;
 
 /* --- Project Routes --- */
-pub mod default_routes;
-pub mod users_route;
-pub mod professors_route;
-pub mod niveis_ensino_route;
 pub mod ciclos_letivos_route;
+pub mod default_routes;
+pub mod niveis_ensino_route;
+pub mod professors_route;
+pub mod users_route;
 
 #[database("PDC")]
 pub struct DbConn(diesel::MysqlConnection);
@@ -39,9 +39,12 @@ fn main() {
     rocket::ignite()
         .attach(StaticResponse::fairing(|resources| {
             static_resources_initialize!(
-                resources, 
-                "favicon", default_routes::favicon_dir(),
-                "index_page", default_routes::index_dir(),);
+                resources,
+                "favicon",
+                default_routes::favicon_dir(),
+                "index_page",
+                default_routes::index_dir(),
+            );
         }))
         .mount(
             "/",
@@ -49,28 +52,24 @@ fn main() {
                 // default routes
                 default_routes::index,
                 default_routes::favicon,
-
                 // users routes
                 users_route::create_user,
                 users_route::read_user,
                 users_route::read_users,
                 users_route::update_user,
                 users_route::delete_user,
-
                 // professors routes
                 professors_route::create_professor,
                 professors_route::read_professor,
                 professors_route::read_professors,
                 professors_route::update_professor,
                 professors_route::delete_professor,
-
                 // niveis_ensino routes
                 niveis_ensino_route::create_niveis_ensino,
                 niveis_ensino_route::read_niveis_ensino_unique,
                 niveis_ensino_route::read_niveis_ensino,
                 niveis_ensino_route::update_niveis_ensino,
                 niveis_ensino_route::delete_niveis_ensino,
-
                 // ciclos_letivos routes
                 ciclos_letivos_route::create_ciclos_letivos,
                 ciclos_letivos_route::read_ciclos_letivos_unique,
