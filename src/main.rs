@@ -23,12 +23,14 @@ pub mod schema;
 pub mod users_model;
 pub mod professors_model;
 pub mod niveis_ensino_model;
+pub mod ciclos_letivos_model;
 
 /* --- Project Routes --- */
 pub mod default_routes;
 pub mod users_route;
 pub mod professors_route;
 pub mod niveis_ensino_route;
+pub mod ciclos_letivos_route;
 
 #[database("PDC")]
 pub struct DbConn(diesel::MysqlConnection);
@@ -68,6 +70,13 @@ fn main() {
                 niveis_ensino_route::read_niveis_ensino,
                 niveis_ensino_route::update_niveis_ensino,
                 niveis_ensino_route::delete_niveis_ensino,
+
+                // ciclos_letivos routes
+                ciclos_letivos_route::create_ciclos_letivos,
+                ciclos_letivos_route::read_ciclos_letivos_unique,
+                ciclos_letivos_route::read_ciclos_letivos,
+                ciclos_letivos_route::update_ciclos_letivos,
+                ciclos_letivos_route::delete_ciclos_letivos,
             ],
         )
         .attach(DbConn::fairing())
