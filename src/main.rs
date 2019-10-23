@@ -22,11 +22,13 @@ pub mod schema;
 /* --- Project Models --- */
 pub mod users_model;
 pub mod professors_model;
+pub mod niveis_ensino_model;
 
 /* --- Project Routes --- */
 pub mod default_routes;
 pub mod users_route;
 pub mod professors_route;
+pub mod niveis_ensino_route;
 
 #[database("PDC")]
 pub struct DbConn(diesel::MysqlConnection);
@@ -59,6 +61,13 @@ fn main() {
                 professors_route::read_professors,
                 professors_route::update_professor,
                 professors_route::delete_professor,
+
+                // niveis_ensino routes
+                niveis_ensino_route::create_niveis_ensino,
+                niveis_ensino_route::read_niveis_ensino_unique,
+                niveis_ensino_route::read_niveis_ensino,
+                niveis_ensino_route::update_niveis_ensino,
+                niveis_ensino_route::delete_niveis_ensino,
             ],
         )
         .attach(DbConn::fairing())
