@@ -27,6 +27,7 @@ pub mod users_model;
 pub mod cursos_model;
 pub mod componentes_curriculares_model;
 pub mod atendimentos_model;
+pub mod atividades_administrativas_model;
 
 
 /* --- Routes --- */
@@ -38,6 +39,7 @@ pub mod users_route;
 pub mod cursos_route;
 pub mod componentes_curriculares_route;
 pub mod atendimentos_route;
+pub mod atividades_administrativas_route;
 
 
 #[database("PDC")]
@@ -103,9 +105,13 @@ fn main() {
                 componentes_curriculares_route::update_componentes_curriculares,
                 componentes_curriculares_route::delete_componentes_curriculares,
 
-                // cursos routes
+                // atendimentos routes
                 atendimentos_route::create_atendimentos,
                 atendimentos_route::read_atendimentos,
+
+                // atividades_administrativas routes
+                atividades_administrativas_route::create_atividades_administrativas,
+                atividades_administrativas_route::read_atividades_administrativas,
             ],
         )
         .attach(DbConn::fairing())
