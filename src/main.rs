@@ -28,6 +28,7 @@ pub mod cursos_model;
 pub mod componentes_curriculares_model;
 pub mod atendimentos_model;
 pub mod atividades_administrativas_model;
+pub mod atividades_extensao_model;
 
 
 /* --- Routes --- */
@@ -40,6 +41,7 @@ pub mod cursos_route;
 pub mod componentes_curriculares_route;
 pub mod atendimentos_route;
 pub mod atividades_administrativas_route;
+pub mod atividades_extensao_route;
 
 
 #[database("PDC")]
@@ -112,6 +114,10 @@ fn main() {
                 // atividades_administrativas routes
                 atividades_administrativas_route::create_atividades_administrativas,
                 atividades_administrativas_route::read_atividades_administrativas,
+
+                // atividades_extensao routes
+                atividades_extensao_route::create_atividades_extensao,
+                atividades_extensao_route::read_atividades_extensao,
             ],
         )
         .attach(DbConn::fairing())
