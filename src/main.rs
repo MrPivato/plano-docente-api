@@ -21,19 +21,22 @@ pub mod schema;
 
 /* --- Models --- */
 pub mod ciclos_letivos_model;
-pub mod cursos_model;
 pub mod niveis_ensino_model;
 pub mod professors_model;
 pub mod users_model;
+pub mod cursos_model;
+pub mod componentes_curriculares_model;
 
 
 /* --- Routes --- */
 pub mod ciclos_letivos_route;
-pub mod cursos_route;
 pub mod default_routes;
 pub mod niveis_ensino_route;
 pub mod professors_route;
 pub mod users_route;
+pub mod cursos_route;
+pub mod componentes_curriculares_route;
+
 
 #[database("PDC")]
 pub struct DbConn(diesel::MysqlConnection);
@@ -90,6 +93,13 @@ fn main() {
                 cursos_route::read_cursos,
                 cursos_route::update_curso,
                 cursos_route::delete_curso,
+
+                // componentes_curriculares routes
+                componentes_curriculares_route::create_componentes_curriculares,
+                componentes_curriculares_route::read_componentes_curriculares_unique,
+                componentes_curriculares_route::read_componentes_curriculares,
+                componentes_curriculares_route::update_componentes_curriculares,
+                componentes_curriculares_route::delete_componentes_curriculares,
             ],
         )
         .attach(DbConn::fairing())
