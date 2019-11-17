@@ -19,14 +19,17 @@ use rocket_include_static_resources::StaticResponse;
 pub mod cors;
 pub mod schema;
 
-/* --- Project Models --- */
+/* --- Models --- */
 pub mod ciclos_letivos_model;
+pub mod cursos_model;
 pub mod niveis_ensino_model;
 pub mod professors_model;
 pub mod users_model;
 
-/* --- Project Routes --- */
+
+/* --- Routes --- */
 pub mod ciclos_letivos_route;
+pub mod cursos_route;
 pub mod default_routes;
 pub mod niveis_ensino_route;
 pub mod professors_route;
@@ -52,30 +55,41 @@ fn main() {
                 // default routes
                 default_routes::index,
                 default_routes::favicon,
+
                 // users routes
                 users_route::create_user,
                 users_route::read_user,
                 users_route::read_users,
                 users_route::update_user,
                 users_route::delete_user,
+
                 // professors routes
                 professors_route::create_professor,
                 professors_route::read_professor,
                 professors_route::read_professors,
                 professors_route::update_professor,
                 professors_route::delete_professor,
+
                 // niveis_ensino routes
                 niveis_ensino_route::create_niveis_ensino,
                 niveis_ensino_route::read_niveis_ensino_unique,
                 niveis_ensino_route::read_niveis_ensino,
                 niveis_ensino_route::update_niveis_ensino,
                 niveis_ensino_route::delete_niveis_ensino,
+
                 // ciclos_letivos routes
                 ciclos_letivos_route::create_ciclos_letivos,
                 ciclos_letivos_route::read_ciclos_letivos_unique,
                 ciclos_letivos_route::read_ciclos_letivos,
                 ciclos_letivos_route::update_ciclos_letivos,
                 ciclos_letivos_route::delete_ciclos_letivos,
+
+                // cursos routes
+                cursos_route::create_curso,
+                cursos_route::read_curso,
+                cursos_route::read_cursos,
+                cursos_route::update_curso,
+                cursos_route::delete_curso,
             ],
         )
         .attach(DbConn::fairing())
