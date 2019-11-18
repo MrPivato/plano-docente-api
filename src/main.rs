@@ -32,6 +32,7 @@ pub mod atividades_extensao_model;
 pub mod atividades_pesquisa_model;
 pub mod projetos_ensino_model;
 pub mod reunioes_formacao_docente_model;
+pub mod aulas_model;
 
 
 /* --- Routes --- */
@@ -48,6 +49,7 @@ pub mod atividades_extensao_route;
 pub mod atividades_pesquisa_route;
 pub mod projetos_ensino_route;
 pub mod reunioes_formacao_docente_route;
+pub mod aulas_route;
 
 
 #[database("PDC")]
@@ -136,6 +138,11 @@ fn main() {
                 // reunioes_formacao_docente routes
                 reunioes_formacao_docente_route::create_reunioes_formacao_docente,
                 reunioes_formacao_docente_route::read_reunioes_formacao_docente,
+
+                // aulas routes
+                aulas_route::create_aulas,
+                aulas_route::read_aulas_cc,
+                aulas_route::read_aulas_full,
             ],
         )
         .attach(DbConn::fairing())
