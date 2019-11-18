@@ -31,6 +31,7 @@ pub mod atividades_administrativas_model;
 pub mod atividades_extensao_model;
 pub mod atividades_pesquisa_model;
 pub mod projetos_ensino_model;
+pub mod reunioes_formacao_docente_model;
 
 
 /* --- Routes --- */
@@ -46,6 +47,7 @@ pub mod atividades_administrativas_route;
 pub mod atividades_extensao_route;
 pub mod atividades_pesquisa_route;
 pub mod projetos_ensino_route;
+pub mod reunioes_formacao_docente_route;
 
 
 #[database("PDC")]
@@ -130,6 +132,10 @@ fn main() {
                 // projetos_ensino routes
                 projetos_ensino_route::create_projetos_ensino,
                 projetos_ensino_route::read_projetos_ensino,
+
+                // reunioes_formacao_docente routes
+                reunioes_formacao_docente_route::create_reunioes_formacao_docente,
+                reunioes_formacao_docente_route::read_reunioes_formacao_docente,
             ],
         )
         .attach(DbConn::fairing())
