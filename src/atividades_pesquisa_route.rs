@@ -2,7 +2,7 @@ use diesel::{self, prelude::*};
 
 use rocket_contrib::json::Json;
 
-use crate::atividades_pesquisa_model::{InsertableAtividadePesquisa, AtividadesPesquisa};
+use crate::atividades_pesquisa_model::{AtividadesPesquisa, InsertableAtividadePesquisa};
 use crate::schema;
 use crate::DbConn;
 
@@ -12,7 +12,6 @@ pub fn create_atividades_pesquisa(
     atividades_pesquisa: Json<Vec<InsertableAtividadePesquisa>>,
     id_professor: i32,
 ) -> Result<String, String> {
-
     delete_atividades_pesquisa(&id_professor, &conn);
 
     let inserted_rows = diesel::insert_into(schema::atividades_pesquisa::table)
@@ -27,10 +26,12 @@ pub fn create_atividades_pesquisa(
 }
 
 #[get("/atividades_pesquisa/<id_professor>")]
-pub fn read_atividades_pesquisa(id_professor: i32, conn: DbConn) -> Result<Json<Vec<AtividadesPesquisa>>, String> {
+pub fn read_atividades_pesquisa(
+    id_professor: i32,
+    conn: DbConn,
+) -> Result<Json<Vec<AtividadesPesquisa>>, String> {
     schema::atividades_pesquisa::table
-        .filter(schema::atividades_pesquisa::id_professor
-        .eq(id_professor))
+        .filter(schema::atividades_pesquisa::id_professor.eq(id_professor))
         .load(&conn.0)
         .map_err(|err| -> String {
             println!("Error querying atividades_pesquisa: {:?}", err);
@@ -40,12 +41,15 @@ pub fn read_atividades_pesquisa(id_professor: i32, conn: DbConn) -> Result<Json<
 }
 
 pub fn delete_atividades_pesquisa(id_professor: &i32, conn: &DbConn) -> Result<String, String> {
-    let deleted_rows = diesel::delete(schema::atividades_pesquisa::table.filter(schema::atividades_pesquisa::id_professor.eq(id_professor)))
-        .execute(&conn.0)
-        .map_err(|err| -> String {
-            println!("Error deleting row: {:?}", err);
-            "Error deleting row into database".into()
-        })?;
+    let deleted_rows = diesel::delete(
+        schema::atividades_pesquisa::table
+            .filter(schema::atividades_pesquisa::id_professor.eq(id_professor)),
+    )
+    .execute(&conn.0)
+    .map_err(|err| -> String {
+        println!("Error deleting row: {:?}", err);
+        "Error deleting row into database".into()
+    })?;
 
     Ok(format!("Deleted {} row(s).", deleted_rows))
 }

@@ -12,7 +12,6 @@ pub fn create_projetos_ensino(
     projetos_ensino: Json<Vec<InsertableProjetoEnsino>>,
     id_professor: i32,
 ) -> Result<String, String> {
-
     delete_projetos_ensino(&id_professor, &conn);
 
     let inserted_rows = diesel::insert_into(schema::projetos_ensino::table)
@@ -27,10 +26,12 @@ pub fn create_projetos_ensino(
 }
 
 #[get("/projetos_ensino/<id_professor>")]
-pub fn read_projetos_ensino(id_professor: i32, conn: DbConn) -> Result<Json<Vec<ProjetosEnsino>>, String> {
+pub fn read_projetos_ensino(
+    id_professor: i32,
+    conn: DbConn,
+) -> Result<Json<Vec<ProjetosEnsino>>, String> {
     schema::projetos_ensino::table
-        .filter(schema::projetos_ensino::id_professor
-        .eq(id_professor))
+        .filter(schema::projetos_ensino::id_professor.eq(id_professor))
         .load(&conn.0)
         .map_err(|err| -> String {
             println!("Error querying projetos_ensino: {:?}", err);
@@ -40,12 +41,15 @@ pub fn read_projetos_ensino(id_professor: i32, conn: DbConn) -> Result<Json<Vec<
 }
 
 pub fn delete_projetos_ensino(id_professor: &i32, conn: &DbConn) -> Result<String, String> {
-    let deleted_rows = diesel::delete(schema::projetos_ensino::table.filter(schema::projetos_ensino::id_professor.eq(id_professor)))
-        .execute(&conn.0)
-        .map_err(|err| -> String {
-            println!("Error deleting row: {:?}", err);
-            "Error deleting row into database".into()
-        })?;
+    let deleted_rows = diesel::delete(
+        schema::projetos_ensino::table
+            .filter(schema::projetos_ensino::id_professor.eq(id_professor)),
+    )
+    .execute(&conn.0)
+    .map_err(|err| -> String {
+        println!("Error deleting row: {:?}", err);
+        "Error deleting row into database".into()
+    })?;
 
     Ok(format!("Deleted {} row(s).", deleted_rows))
 }

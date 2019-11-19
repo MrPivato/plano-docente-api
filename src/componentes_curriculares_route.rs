@@ -2,7 +2,9 @@ use diesel::{self, prelude::*};
 
 use rocket_contrib::json::Json;
 
-use crate::componentes_curriculares_model::{ComponentesCurriculares, InsertableComponenteCurricular, UpdatableComponenteCurricular};
+use crate::componentes_curriculares_model::{
+    ComponentesCurriculares, InsertableComponenteCurricular, UpdatableComponenteCurricular,
+};
 use crate::schema;
 use crate::DbConn;
 
@@ -23,7 +25,9 @@ pub fn create_componentes_curriculares(
 }
 
 #[get("/componentes_curriculares")]
-pub fn read_componentes_curriculares(conn: DbConn) -> Result<Json<Vec<ComponentesCurriculares>>, String> {
+pub fn read_componentes_curriculares(
+    conn: DbConn,
+) -> Result<Json<Vec<ComponentesCurriculares>>, String> {
     use crate::schema::componentes_curriculares::dsl::*;
 
     componentes_curriculares

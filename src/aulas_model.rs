@@ -1,5 +1,5 @@
-use chrono::NaiveDateTime;
 use crate::schema::aulas;
+use chrono::NaiveDateTime;
 
 #[derive(Serialize, Deserialize, Queryable)]
 pub struct Aulas {
@@ -34,7 +34,7 @@ pub struct AulasFull {
     pub nome_curso: Option<String>,
     pub nivel_ensino_id: Option<i32>,
     pub nome_componente_curricular: Option<String>,
-    pub ch_semanal: f32
+    pub ch_semanal: f32,
 }
 /*
     aulas (id) {

@@ -2,15 +2,12 @@ use diesel::{self, prelude::*};
 
 use rocket_contrib::json::Json;
 
-use crate::cursos_model::{InsertableCurso, Cursos, UpdatableCurso};
+use crate::cursos_model::{Cursos, InsertableCurso, UpdatableCurso};
 use crate::schema;
 use crate::DbConn;
 
 #[post("/cursos", data = "<curso>")]
-pub fn create_curso(
-    conn: DbConn,
-    curso: Json<InsertableCurso>,
-) -> Result<String, String> {
+pub fn create_curso(conn: DbConn, curso: Json<InsertableCurso>) -> Result<String, String> {
     let inserted_rows = diesel::insert_into(schema::cursos::table)
         .values(&curso.0)
         .execute(&conn.0)
@@ -48,11 +45,7 @@ pub fn read_curso(id: i32, conn: DbConn) -> Result<Json<Vec<Cursos>>, String> {
 }
 
 #[put("/cursos/<id>", data = "<curso>")]
-pub fn update_curso(
-    id: i32,
-    conn: DbConn,
-    curso: Json<UpdatableCurso>,
-) -> Result<String, String> {
+pub fn update_curso(id: i32, conn: DbConn, curso: Json<UpdatableCurso>) -> Result<String, String> {
     let inserted_rows = diesel::update(schema::cursos::table.find(id))
         .set(&curso.0)
         .execute(&conn.0)

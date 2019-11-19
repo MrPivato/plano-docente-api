@@ -1,5 +1,5 @@
-use chrono::NaiveDateTime;
 use crate::schema::atividades_pesquisa;
+use chrono::NaiveDateTime;
 
 #[derive(Serialize, Deserialize, Queryable)]
 pub struct AtividadesPesquisa {

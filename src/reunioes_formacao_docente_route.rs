@@ -2,17 +2,21 @@ use diesel::{self, prelude::*};
 
 use rocket_contrib::json::Json;
 
-use crate::reunioes_formacao_docente_model::{InsertableReuniaoFormacaoDocente, ReunioesFormacaoDocente};
+use crate::reunioes_formacao_docente_model::{
+    InsertableReuniaoFormacaoDocente, ReunioesFormacaoDocente,
+};
 use crate::schema;
 use crate::DbConn;
 
-#[post("/reunioes_formacao_docente/<id_professor>", data = "<reunioes_formacao_docente>")]
+#[post(
+    "/reunioes_formacao_docente/<id_professor>",
+    data = "<reunioes_formacao_docente>"
+)]
 pub fn create_reunioes_formacao_docente(
     conn: DbConn,
     reunioes_formacao_docente: Json<Vec<InsertableReuniaoFormacaoDocente>>,
     id_professor: i32,
 ) -> Result<String, String> {
-
     delete_reunioes_formacao_docente(&id_professor, &conn);
 
     let inserted_rows = diesel::insert_into(schema::reunioes_formacao_docente::table)
@@ -27,10 +31,12 @@ pub fn create_reunioes_formacao_docente(
 }
 
 #[get("/reunioes_formacao_docente/<id_professor>")]
-pub fn read_reunioes_formacao_docente(id_professor: i32, conn: DbConn) -> Result<Json<Vec<ReunioesFormacaoDocente>>, String> {
+pub fn read_reunioes_formacao_docente(
+    id_professor: i32,
+    conn: DbConn,
+) -> Result<Json<Vec<ReunioesFormacaoDocente>>, String> {
     schema::reunioes_formacao_docente::table
-        .filter(schema::reunioes_formacao_docente::id_professor
-        .eq(id_professor))
+        .filter(schema::reunioes_formacao_docente::id_professor.eq(id_professor))
         .load(&conn.0)
         .map_err(|err| -> String {
             println!("Error querying reunioes_formacao_docente: {:?}", err);
@@ -39,13 +45,19 @@ pub fn read_reunioes_formacao_docente(id_professor: i32, conn: DbConn) -> Result
         .map(Json)
 }
 
-pub fn delete_reunioes_formacao_docente(id_professor: &i32, conn: &DbConn) -> Result<String, String> {
-    let deleted_rows = diesel::delete(schema::reunioes_formacao_docente::table.filter(schema::reunioes_formacao_docente::id_professor.eq(id_professor)))
-        .execute(&conn.0)
-        .map_err(|err| -> String {
-            println!("Error deleting row: {:?}", err);
-            "Error deleting row into database".into()
-        })?;
+pub fn delete_reunioes_formacao_docente(
+    id_professor: &i32,
+    conn: &DbConn,
+) -> Result<String, String> {
+    let deleted_rows = diesel::delete(
+        schema::reunioes_formacao_docente::table
+            .filter(schema::reunioes_formacao_docente::id_professor.eq(id_professor)),
+    )
+    .execute(&conn.0)
+    .map_err(|err| -> String {
+        println!("Error deleting row: {:?}", err);
+        "Error deleting row into database".into()
+    })?;
 
     Ok(format!("Deleted {} row(s).", deleted_rows))
 }
