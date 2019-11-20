@@ -7,7 +7,7 @@ DROP TABLE `ciclos_letivos`;
 DROP TABLE `componentes_curriculares`;
 DROP TABLE `cursos`;
 DROP TABLE `niveis_ensino`;
-DROP TABLE `professors`;
 DROP TABLE `projetos_ensino`;
 DROP TABLE `reunioes_formacao_docente`;
+DROP TABLE `professors`;
 DROP TABLE `users`;

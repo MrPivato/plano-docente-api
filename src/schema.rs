@@ -142,6 +142,7 @@ table! {
         id -> Integer,
         login -> Varchar,
         password_hash -> Varchar,
+        role -> Varchar,
         created_at -> Datetime,
         updated_at -> Datetime,
     }

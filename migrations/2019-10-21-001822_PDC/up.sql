@@ -121,6 +121,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `login` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
