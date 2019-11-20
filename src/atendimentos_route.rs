@@ -12,8 +12,10 @@ pub fn create_atendimentos(
     atendimentos: Json<Vec<InsertableAtendimento>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    // deleta os atendimentos com id do prof antes do insert
-    delete_atendimentos(&id_professor, &conn);
+    match delete_atendimentos(&id_professor, &conn) {
+        Ok(_) => println!("OK"),
+        Err(_) => println!("Error"),
+    };
 
     let inserted_rows = diesel::insert_into(schema::atendimentos::table)
         .values(&atendimentos.0)

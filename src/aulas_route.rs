@@ -12,7 +12,10 @@ pub fn create_aulas(
     aulas: Json<Vec<InsertableAula>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    delete_aulas(&id_professor, &conn);
+    match delete_aulas(&id_professor, &conn) {
+        Ok(_) => println!("OK"),
+        Err(_) => println!("Error"),
+    };
 
     let inserted_rows = diesel::insert_into(schema::aulas::table)
         .values(&aulas.0)

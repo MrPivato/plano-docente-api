@@ -17,7 +17,10 @@ pub fn create_atividades_administrativas(
     atividades_administrativas: Json<Vec<InsertableAtividadeAdministrativa>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    delete_atividades_administrativas(&id_professor, &conn);
+    match delete_atividades_administrativas(&id_professor, &conn) {
+        Ok(_) => println!("OK"),
+        Err(_) => println!("Error"),
+    };
 
     let inserted_rows = diesel::insert_into(schema::atividades_administrativas::table)
         .values(&atividades_administrativas.0)

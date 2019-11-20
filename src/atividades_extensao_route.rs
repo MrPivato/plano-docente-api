@@ -12,7 +12,10 @@ pub fn create_atividades_extensao(
     atividades_extensao: Json<Vec<InsertableAtividadeExtensao>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    delete_atividades_extensao(&id_professor, &conn);
+    match delete_atividades_extensao(&id_professor, &conn) {
+        Ok(_) => println!("OK"),
+        Err(_) => println!("Error"),
+    };
 
     let inserted_rows = diesel::insert_into(schema::atividades_extensao::table)
         .values(&atividades_extensao.0)

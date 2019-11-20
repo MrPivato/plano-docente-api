@@ -12,7 +12,10 @@ pub fn create_projetos_ensino(
     projetos_ensino: Json<Vec<InsertableProjetoEnsino>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    delete_projetos_ensino(&id_professor, &conn);
+    match delete_projetos_ensino(&id_professor, &conn) {
+        Ok(_) => println!("OK"),
+        Err(_) => println!("Error"),
+    };
 
     let inserted_rows = diesel::insert_into(schema::projetos_ensino::table)
         .values(&projetos_ensino.0)

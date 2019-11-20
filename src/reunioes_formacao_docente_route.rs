@@ -17,7 +17,11 @@ pub fn create_reunioes_formacao_docente(
     reunioes_formacao_docente: Json<Vec<InsertableReuniaoFormacaoDocente>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    delete_reunioes_formacao_docente(&id_professor, &conn);
+
+    match delete_reunioes_formacao_docente(&id_professor, &conn) {
+        Ok(_) => println!("OK"),
+        Err(_) => println!("Error"),
+    };
 
     let inserted_rows = diesel::insert_into(schema::reunioes_formacao_docente::table)
         .values(&reunioes_formacao_docente.0)
