@@ -12,7 +12,7 @@ pub fn create_aulas(
     aulas: Json<Vec<InsertableAula>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    match delete_aulas(&id_professor, &conn) {
+    match delete_aulas(id_professor, &conn) {
         Ok(_) => println!("OK"),
         Err(_) => println!("Error"),
     };
@@ -68,7 +68,7 @@ pub fn read_aulas_full(id_professor: i32, conn: DbConn) -> Result<Json<Vec<Aulas
         .map(Json)
 }
 
-pub fn delete_aulas(id_professor: &i32, conn: &DbConn) -> Result<String, String> {
+pub fn delete_aulas(id_professor: i32, conn: &DbConn) -> Result<String, String> {
     let deleted_rows =
         diesel::delete(schema::aulas::table.filter(schema::aulas::id_professor.eq(id_professor)))
             .execute(&conn.0)

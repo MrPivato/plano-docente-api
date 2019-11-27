@@ -12,7 +12,7 @@ pub fn create_projetos_ensino(
     projetos_ensino: Json<Vec<InsertableProjetoEnsino>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    match delete_projetos_ensino(&id_professor, &conn) {
+    match delete_projetos_ensino(id_professor, &conn) {
         Ok(_) => println!("OK"),
         Err(_) => println!("Error"),
     };
@@ -43,7 +43,7 @@ pub fn read_projetos_ensino(
         .map(Json)
 }
 
-pub fn delete_projetos_ensino(id_professor: &i32, conn: &DbConn) -> Result<String, String> {
+pub fn delete_projetos_ensino(id_professor: i32, conn: &DbConn) -> Result<String, String> {
     let deleted_rows = diesel::delete(
         schema::projetos_ensino::table
             .filter(schema::projetos_ensino::id_professor.eq(id_professor)),

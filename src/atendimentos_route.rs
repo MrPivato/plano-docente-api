@@ -12,7 +12,7 @@ pub fn create_atendimentos(
     atendimentos: Json<Vec<InsertableAtendimento>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    match delete_atendimentos(&id_professor, &conn) {
+    match delete_atendimentos(id_professor, &conn) {
         Ok(_) => println!("OK"),
         Err(_) => println!("Error"),
     };
@@ -43,7 +43,7 @@ pub fn read_atendimentos(
         .map(Json)
 }
 
-pub fn delete_atendimentos(id_professor: &i32, conn: &DbConn) -> Result<String, String> {
+pub fn delete_atendimentos(id_professor: i32, conn: &DbConn) -> Result<String, String> {
     let deleted_rows = diesel::delete(
         schema::atendimentos::table.filter(schema::atendimentos::id_professor.eq(id_professor)),
     )

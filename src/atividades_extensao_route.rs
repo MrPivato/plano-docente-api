@@ -12,7 +12,7 @@ pub fn create_atividades_extensao(
     atividades_extensao: Json<Vec<InsertableAtividadeExtensao>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    match delete_atividades_extensao(&id_professor, &conn) {
+    match delete_atividades_extensao(id_professor, &conn) {
         Ok(_) => println!("OK"),
         Err(_) => println!("Error"),
     };
@@ -43,7 +43,7 @@ pub fn read_atividades_extensao(
         .map(Json)
 }
 
-pub fn delete_atividades_extensao(id_professor: &i32, conn: &DbConn) -> Result<String, String> {
+pub fn delete_atividades_extensao(id_professor: i32, conn: &DbConn) -> Result<String, String> {
     let deleted_rows = diesel::delete(
         schema::atividades_extensao::table
             .filter(schema::atividades_extensao::id_professor.eq(id_professor)),

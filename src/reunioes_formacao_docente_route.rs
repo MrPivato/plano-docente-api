@@ -18,7 +18,7 @@ pub fn create_reunioes_formacao_docente(
     id_professor: i32,
 ) -> Result<String, String> {
 
-    match delete_reunioes_formacao_docente(&id_professor, &conn) {
+    match delete_reunioes_formacao_docente(id_professor, &conn) {
         Ok(_) => println!("OK"),
         Err(_) => println!("Error"),
     };
@@ -50,7 +50,7 @@ pub fn read_reunioes_formacao_docente(
 }
 
 pub fn delete_reunioes_formacao_docente(
-    id_professor: &i32,
+    id_professor: i32,
     conn: &DbConn,
 ) -> Result<String, String> {
     let deleted_rows = diesel::delete(

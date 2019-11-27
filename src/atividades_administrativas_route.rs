@@ -17,7 +17,7 @@ pub fn create_atividades_administrativas(
     atividades_administrativas: Json<Vec<InsertableAtividadeAdministrativa>>,
     id_professor: i32,
 ) -> Result<String, String> {
-    match delete_atividades_administrativas(&id_professor, &conn) {
+    match delete_atividades_administrativas(id_professor, &conn) {
         Ok(_) => println!("OK"),
         Err(_) => println!("Error"),
     };
@@ -49,7 +49,7 @@ pub fn read_atividades_administrativas(
 }
 
 pub fn delete_atividades_administrativas(
-    id_professor: &i32,
+    id_professor: i32,
     conn: &DbConn,
 ) -> Result<String, String> {
     let deleted_rows = diesel::delete(
